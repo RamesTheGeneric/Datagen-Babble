@@ -189,6 +189,7 @@ with open('MySlate_4_iPhone.csv', newline='') as csvfile:
         float(row["MouthUpperUpRight"]), float(row["MouthLowerDownLeft"]), float(row["MouthLowerDownRight"]), float(row["MouthLeft"]), float(row["MouthRight"]), 
         float(row["MouthSmileLeft"]), float(row["MouthSmileRight"]), float(row["MouthFrownLeft"]), float(row["MouthFrownRight"]), float(row["MouthStretchLeft"]), float(row["MouthStretchRight"]), 
         float(row["MouthDimpleLeft"]), float(row["MouthDimpleRight"]), float(row["MouthShrugUpper"]), float(row["MouthShrugLower"]), float(row["MouthPressLeft"]), float(row["MouthPressRight"]), float(row["TongueOut"]), float(row["NoseSneerLeft"]), float(row["NoseSneerRight"])]
+        #shape_row = [float(row[item]) for item in shape_row]
         arkit_list.append(shape_row)
     for akl in enumerate(arkit_list):
         fill_babble_shapes(akl[1], sd, babble_shape_index)

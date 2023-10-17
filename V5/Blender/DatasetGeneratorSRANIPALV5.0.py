@@ -1,6 +1,13 @@
+import bpy
+import pathlib
 import csv
 import random
 import numpy as np
+
+mesh = 'BabbleCA_M'
+ARKIT_CSV = "Z:\BabbleDataGeneration\BabbleDataGeneration\Humans 4.2.1\DESKTOP-HSMKF9L - v1.0.0 - 1.6.2023 8.56.39 AM.csv"
+MESH = bpy.data.objects[mesh]
+
 
 babble_shape_index = ["cheekPuffLeft", "cheekPuffRight", "cheekSuckLeft", "cheekSuckRight", "jawOpen", "jawForward", "jawLeft", "jawRight", "noseSneerLeft", "noseSneerRight", "mouthFunnel", "mouthPucker", "mouthLeft", "mouthRight", 
     "mouthRollUpper", "mouthRollLower", "mouthShrugUpper", "mouthShrugLower", "mouthClose", "mouthSmileLeft", 
@@ -190,9 +197,10 @@ def fill_babble_shapes(akl, sd, bsi):
     sd[bsi[42]].append(tongueFlat)
     sd[bsi[43]].append(tongueTwistLeft)
     sd[bsi[44]].append(tongueTwistRight)
-#CP_LOWER_THRESH = lower_threshold = np.percentile(array, 10)
 
-with open('DESKTOP-HSMKF9L - v1.0.0 - 1.6.2023 8.56.39 AM.csv', newline='') as csvfile:
+
+
+with open(ARKIT_CSV, newline='') as csvfile:
     arkit_list = []
     reader = csv.DictReader(csvfile)
     for row in reader:
@@ -204,17 +212,34 @@ with open('DESKTOP-HSMKF9L - v1.0.0 - 1.6.2023 8.56.39 AM.csv', newline='') as c
         arkit_list.append(shape_row)
     for akl in enumerate(arkit_list):
         fill_babble_shapes(akl[1], sd, babble_shape_index)
-    #print(sd["tongueOut"])
-    '''
-    for i in range(len(sd["jawOpen"])):
-        print(sd["jawOpen"][i], sd["mouthClose"][i])
-        '''
-    #lows = np.asarray(arkit_list)
-    #lows = np.percentile(lows[:, 0], 5)
-    #print(lows)
-    #print(arkit_list[0][28])
-    #lower_threshold = np.percentile(lows[], 1)
-    #print(lower_threshold)
-    #CP_LOWER_THRESH = np.percentile(array, 10)
-    #print(lower_threshold)
 
+def add_blendshape_fcurve(ob, shape_name, keyframes):
+    
+    shape_key = ob.data.shape_keys.key_blocks.get(shape_name)
+    if shape_key:
+        me = ob.data
+        me.shape_keys.animation_data_create()
+        action = bpy.data.actions["Key.004Action"]
+        fc = action.fcurves.new(f'key_blocks["{shape_key.name}"].value')
+        fc.keyframe_points.add(count=len(keyframes) // 2)
+        fc.keyframe_points.foreach_set("co", keyframes)
+
+start = 0
+end = 10000
+
+for shape_name in babble_shape_index:
+    print(shape_name)
+    keyframes = []
+    for kf in range(start, end): # List of random values representing generated ones
+        keyframes.append(kf)
+        keyframes.append(sd[shape_name][kf])  
+    for kf in range(start, end): # Random Calib offsets
+        min_value = 0
+        max_value = random.uniform(0.5, 1)
+        value = np.clip((sd[shape_name][kf] - min_value) / (max_value - min_value), 0, 1)
+        keyframes.append(kf + end)
+        keyframes.append(value)  
+    
+
+    add_blendshape_fcurve(bpy.context.object, shape_name, keyframes)
+MESH.data.shape_keys.animation_data.action
