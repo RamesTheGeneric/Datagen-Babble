@@ -1,8 +1,8 @@
 import os
 
 # specify the directories
-dir1 = "C:\\Users\\epicm\\Desktop\\BabbleTraining\\lipcsv"
-dir2 = "C:\\Users\\epicm\\Desktop\\BabbleTraining\\lipimages"
+dir1 = "C:\\Users\\epicm\\Desktop\\Dataset\\RenderSceneV5-Babble-Summer"
+dir2 = "C:\\Users\\epicm\\Desktop\\csv_blendshapes\\RenderSceneV5-Babble-Summer"
 
 # get a list of all files in the first directory
 files1 = [os.path.splitext(file)[0] for file in os.listdir(dir1)]

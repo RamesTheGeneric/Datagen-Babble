@@ -202,6 +202,21 @@ with open('DESKTOP-HSMKF9L - v1.0.0 - 1.6.2023 8.56.39 AM.csv', newline='') as c
         'lip.TongueRoll', 'lip.TongueLongStep2']
         shape_row = [float(row[item]) for item in shape_row]
         arkit_list.append(shape_row)
+    transposed_data = np.array(arkit_list).T
+    percentiles = []
+    for column in transposed_data:
+        tenth_percentile = np.percentile(column, 10)
+        ninetieth_percentile = np.percentile(column, 98)
+        percentiles.append((tenth_percentile, ninetieth_percentile))
+    #print(percentiles)
+    for j in range(len(arkit_list)):
+        for i in range(len(arkit_list[j])):
+            #print(percentiles[i])
+            #print(arkit_list[j][i])
+            #print(percentiles[i][0])
+            #print(percentiles[i][1])
+            arkit_list[j][i] = np.clip(((arkit_list[j][i] - percentiles[i][0]) / (percentiles[i][1] - percentiles[i][0])),0,1)
+    #print(arkit_list)
     for akl in enumerate(arkit_list):
         fill_babble_shapes(akl[1], sd, babble_shape_index)
     #print(sd["tongueOut"])
