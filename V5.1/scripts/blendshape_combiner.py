@@ -11,10 +11,13 @@ input_directories = ['C://Users//epicm//Desktop//csv_blendshapes//RenderSceneV5-
                      'C://Users//epicm//Desktop//csv_blendshapes//RenderSceneV5-Babble-Rames-TonguePuffSuck',
                      'C://Users//epicm//Desktop//csv_blendshapes//RenderSceneV5-Babble-Skyrunner',
                      'C://Users//epicm//Desktop//csv_blendshapes//RenderSceneV5-Babble-Summer',
-                     'C://Users//epicm//Desktop//csv_blendshapes//SummerBabble-LCL']
+                     'C://Users//epicm//Desktop//csv_blendshapes//SummerBabble-LCL',
+                     'C://Users//epicm//Desktop//csv_blendshapes//RenderSceneV5-Babble-Taco',
+                     'C://Users//epicm//Desktop//csv_blendshapes//RenderSceneV5-Babble-Tigs',
+                     'C://Users//epicm//Desktop//csv_blendshapes//RenderSceneV5-Babble-TigsHair']
 
 # Specify the name of the output CSV file
-output_file = 'combined_blendshapes.csv'
+output_file = 'BabbleDataset_V5.2_FEB_1_2024.csv'
 
 # Initialize an empty list to store all the rows from the CSV files
 all_rows = []

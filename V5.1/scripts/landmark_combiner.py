@@ -2,8 +2,8 @@ import os
 import pandas as pd
 
 # Specify the directory where your CSV files are located
-directory = 'C://Users//epicm//Desktop//csv_dev//'
-directory = 'Z://BabbleDataGeneration//BabbleDataGeneration//Humans 5.0//avatars//lipimages'
+directory = 'C://Users//epicm//Desktop//BabbleDatasetV6Dev//csv_dev//'
+#directory = 'Z://BabbleDataGeneration//BabbleDataGeneration//Humans 5.0//avatars//lipimages'
 
 # List all CSV files in the specified directory
 csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
